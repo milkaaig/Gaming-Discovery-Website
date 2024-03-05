@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-import axios, { AxiosError, CanceledError } from "axios";
-=======
->>>>>>> e968020 (separation of concerns)
 import React, { useEffect, useState } from "react";
 import { CanceledError } from "./services/api-client";
 import userService, { User } from "./services/user-service";
@@ -13,17 +9,9 @@ const App = () => {
 
   useEffect(() => {
     setLoading(true);
-<<<<<<< HEAD
-    {/* 
-    axios
-      .get<User[]>("https://jsonplaceholder.typicode.com/users", {
-        signal: controller.signal,
-      })
-=======
     const { request, cancel } = userService.getAllUsers();
 
     request
->>>>>>> e968020 (separation of concerns)
       .then((response) => {
         setUser(response.data);
         setLoading(false);
@@ -32,27 +20,9 @@ const App = () => {
         if (err instanceof CanceledError) return;
         setError(err.message);
         setLoading(false);
-      }); */}
+      }); 
     
-    const fetchUser = async () => {
-
-      try{
-        const response = await axios
-        .get<User[]>("https://jsonplaceholder.typicode.com/users"
-         ,{
-        signal: controller.signal});
-
-        setUser(response.data);
-        setLoading(false);
-      
-
-      }
-      catch(err){
-        setError((err as AxiosError).message)
-        setLoading(false)
-      }
-
-    };
+  
 
     return () => {cancel};
   }, []);
@@ -83,22 +53,10 @@ const App = () => {
     const original = [...users];
     const updatedUser = { ...user, name: user.name + "!" };
     setUser(users.map((u) => (u.id == user.id ? updatedUser : u)));
-<<<<<<< HEAD
-    axios
-      .patch(
-        "https://jsonplaceholder.typicode.com/users/" + user.id,
-        updateUser
-      )
-      .catch((err) => {
-        setError(err);
-        setUser(original);
-      });
-=======
     userService.updateUser(updatedUser).catch((err) => {
       setError(err);
       setUser(original);
     });
->>>>>>> e968020 (separation of concerns)
   };
 
   return (
