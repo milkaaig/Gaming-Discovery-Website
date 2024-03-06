@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from "react";
-import { CanceledError } from "./services/api-client";
 import userService, { User } from "./services/user-service";
 import useUsers from "./hooks/useUsers";
 
